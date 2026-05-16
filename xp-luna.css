@@ -1,12 +1,6 @@
-/* xp-luna.css — Windows XP Luna Theme for Discord (Vencord 2026) */
+/* xp-luna-updated.css — Windows XP Luna Theme for Discord (Vencord 2026) */
 /* Author: You | Based on official Luna colors, Bliss SVG, and modern Discord DOM */
-/* This file is self-contained and works without external dependencies */
-
-/* --- Embedded Bliss Background as SVG (no external URL) --- */
-#app-mount,
-.appMount_ec3009 {
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230053c3'/%3E%3Cstop offset='100%25' stop-color='%235d9cec'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='100' height='100'/%3E%3C/svg%3E") center/cover fixed !important;
-}
+/* Uses high specificity and embedded background for guaranteed compatibility */
 
 /* --- XP Luna Color Palette --- */
 :root {
@@ -27,16 +21,31 @@
     --xp-text: #000000;
     --xp-accent: #0a246a;
     --xp-unread: #ff0000;
+
+    --squared-radius: 0;
+}
+
+/* --- Embedded Bliss Background as SVG (no external URL) --- */
+#app-mount,
+.appMount_ec3009 {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230053c3'/%3E%3Cstop offset='100%25' stop-color='%235d9cec'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='100' height='100'/%3E%3C/svg%3E") center/cover fixed !important;
 }
 
 /* --- Force square UI (XP has no rounded corners) --- */
 *, *::before, *::after {
-    border-radius: 0 !important;
+    border-radius: var(--squared-radius) !important;
+}
+
+/* --- Ensure layout is applied regardless of theme context --- */
+.theme-dark,
+.theme-light {
+    --xp-current-bg: var(--xp-gray-light);
+    --xp-current-text: var(--xp-text);
 }
 
 /* === ПАНЕЛЬ ЗАДАЧ (серверы внизу) === */
-/* Критически важный селектор: работает в Discord 2026 */
-:is(.wrapper_fea3ef, .guilds_a4d4d9) {
+/* High specificity selector */
+:is(:where(.wrapper_fea3ef)) {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
@@ -51,14 +60,16 @@
     z-index: 10000 !important;
     display: flex !important;
     align-items: center !important;
+    /* Ensure it's not clipped */
+    pointer-events: all !important;
 }
 
-:is(.wrapper_fea3ef, .guilds_a4d4d9)::-webkit-scrollbar {
+:is(:where(.wrapper_fea3ef))::-webkit-scrollbar {
     display: none !important;
 }
 
 /* Иконки серверов на панели задач */
-:is(.guildIconContainer_b0a763, .childWrapper_a6ce15, .wrapper_ed1dea) {
+:is(:where(.guildIconContainer_b0a763, .childWrapper_a6ce15, .wrapper_ed1dea)) {
     width: 32px !important;
     height: 32px !important;
     border: 1px solid transparent !important;
@@ -67,19 +78,17 @@
     flex-shrink: 0 !important;
 }
 
-:is(.selected_ae80f7) .childWrapper_a6ce15,
-:is(.selected_ae80f7) .wrapper_ed1dea {
+:is(:where(.selected_ae80f7)) :is(:where(.childWrapper_a6ce15, .wrapper_ed1dea)) {
     background: var(--xp-accent) !important;
     border: 1px solid var(--xp-gray-darker) !important;
 }
 
-:is(.selected_ae80f7) .childWrapper_a6ce15 *,
-:is(.selected_ae80f7) .wrapper_ed1dea * {
+:is(:where(.selected_ae80f7)) :is(:where(.childWrapper_a6ce15 *, .wrapper_ed1dea *)) {
     filter: brightness(0) invert(1);
 }
 
 /* === ЗАГОЛОВОК СЕРВЕРА (стиль окна XP) === */
-.titleBar_a934d8 {
+:is(:where(.titleBar_a934d8)) {
     background: linear-gradient(to bottom, var(--xp-blue-dark), var(--xp-blue-medium)) !important;
     color: white !important;
     padding: 4px 8px !important;
@@ -91,6 +100,7 @@
     font-size: 12px !important;
     line-height: 22px !important;
     position: relative !important;
+    height: 30px !important; /* Explicit height for consistent positioning */
 }
 
 .title_a3a4ce {
@@ -99,7 +109,7 @@
 }
 
 /* Добавляем "— □ ×" в заголовок */
-.titleBar_a934d8::after {
+:is(:where(.titleBar_a934d8))::after {
     content: "─ □ ×" !important;
     position: absolute !important;
     right: 12px !important;
@@ -112,7 +122,7 @@
 }
 
 /* === БОКОВАЯ ПАНЕЛЬ (каналы) === */
-.sidebar_a4d4d9 {
+:is(:where(.sidebar_a4d4d9)) {
     background: var(--xp-gray-light) !important;
     border-right: 1px solid var(--xp-gray-darker) !important;
     border-top: 1px solid var(--xp-button-highlight) !important;
@@ -120,20 +130,20 @@
     border-bottom: 1px solid var(--xp-button-shadow) !important;
 }
 
-.containerDefault_f6f816 {
+:is(:where(.containerDefault_f6f816)) {
     background: var(--xp-gray-light) !important;
 }
-.containerDefault_f6f816:hover {
+:is(:where(.containerDefault_f6f816)):hover {
     background: var(--xp-gray-medium) !important;
 }
 
 /* === ЧАТ-ОБЛАСТЬ === */
-.chatContent_a7d72e {
+:is(:where(.chatContent_a7d72e)) {
     background: var(--xp-gray-light) !important;
     border-left: 1px solid var(--xp-gray-darker) !important;
 }
 
-.message_d5deea {
+:is(:where(.message_d5deea)) {
     background: var(--xp-gray-light) !important;
     border: 1px solid var(--xp-gray-darker) !important;
     border-left: none !important;
@@ -188,7 +198,7 @@ input, textarea, [class*="textarea"] {
 }
 
 /* === МОДАЛЬНЫЕ ОКНА === */
-.modal_a4a4f9 {
+:is(:where(.modal_a4a4f9)) {
     background: var(--xp-gray-light) !important;
     border: 2px solid var(--xp-gray-darker) !important;
     border-top: 2px solid var(--xp-button-highlight) !important;
@@ -197,27 +207,30 @@ input, textarea, [class*="textarea"] {
     border-bottom: 2px solid var(--xp-button-shadow) !important;
 }
 
-.header_a0 {
+:is(:where(.header_a0)) {
     background: linear-gradient(to bottom, var(--xp-blue-dark), var(--xp-blue-medium)) !important;
     color: white !important;
 }
 
 /* === УБИРАЕМ НЕНУЖНОЕ === */
-.homeIcon_f94206,
-.trialBadge_e5cc02,
-.premiumTabItem_c7a22b,
-.wrapper_a47d49 {
+:is(:where(.homeIcon_f94206, .trialBadge_e5cc02, .premiumTabItem_c7a22b, .wrapper_a47d49)) {
     display: none !important;
 }
 
 /* === ТЕКСТ === */
-.markup_a7e664 {
+:is(:where(.markup_a7e664)) {
     color: var(--xp-text) !important;
     font: 12px Tahoma, Arial, sans-serif !important;
 }
 
-/* === ГАРАНТИЯ ПРИОРИТЕТА --- */
+/* --- Гарантия приоритета --- */
 /* Если Discord применяет инлайновые стили, мы перебьём их */
-:is(.wrapper_fea3ef, .titleBar_a934d8, .sidebar_a4d4d9, .chatContent_a7d72e) {
-    all: unset !important;
+:is(:where(.wrapper_fea3ef, .titleBar_a934d8, .sidebar_a4d4d9, .chatContent_a7d72e)) {
+    all: initial !important; /* Reset everything first */
+    background: inherit !important; /* Then re-apply our background */
+    color: inherit !important;
+    border: inherit !important;
+    position: inherit !important;
+    display: inherit !important;
+    z-index: inherit !important;
 }
