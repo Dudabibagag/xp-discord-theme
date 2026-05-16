@@ -1,0 +1,216 @@
+/* xp-luna.css — Windows XP Luna Theme for Discord (Vencord) */
+/* Author: You | Based on official Luna colors & Bliss background */
+
+/* --- XP Luna Color Palette --- */
+:root {
+    --xp-blue-light: #e6f0fa;
+    --xp-blue-medium: #9ebcdb;
+    --xp-blue-dark: #5a8bd1;
+    --xp-blue-title: #0a246a;
+
+    --xp-gray-light: #f5f5f5;
+    --xp-gray-medium: #ebebeb;
+    --xp-gray-dark: #d1d1d1;
+    --xp-gray-darker: #a0a0a0;
+
+    --xp-button-face: #ececec;
+    --xp-button-shadow: #9f9f9f;
+    --xp-button-highlight: #ffffff;
+
+    --xp-text: #000000;
+    --xp-accent: #0a246a;
+    --xp-unread: #ff0000;
+}
+
+/* --- Bliss Background (fixed, no external dependency) --- */
+#app-mount,
+.appMount_ec3009 {
+    background: url("https://i.imgur.com/M6y500D.jpeg") center/cover fixed !important;
+}
+
+/* --- Force square UI (XP has no rounded corners) --- */
+*, *::before, *::after {
+    border-radius: 0 !important;
+}
+
+/* === ПАНЕЛЬ ЗАДАЧ (серверы внизу) === */
+.wrapper_fea3ef {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 40px !important;
+    background: linear-gradient(to bottom, var(--xp-blue-light), var(--xp-blue-medium)) !important;
+    border: 1px solid var(--xp-blue-dark) !important;
+    padding: 4px 8px !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+    z-index: 10000 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.wrapper_fea3ef::-webkit-scrollbar {
+    display: none !important;
+}
+
+.guildIconContainer_b0a763 {
+    margin-right: 2px !important;
+}
+
+.childWrapper_a6ce15,
+.wrapper_ed1dea {
+    width: 32px !important;
+    height: 32px !important;
+    border: 1px solid transparent !important;
+    background: transparent !important;
+    margin: 0 !important;
+}
+
+.selected_ae80f7 .childWrapper_a6ce15,
+.selected_ae80f7 .wrapper_ed1dea {
+    background: var(--xp-accent) !important;
+    border: 1px solid var(--xp-gray-darker) !important;
+}
+
+.selected_ae80f7 .childWrapper_a6ce15 *,
+.selected_ae80f7 .wrapper_ed1dea * {
+    filter: brightness(0) invert(1);
+}
+
+/* === ЗАГОЛОВОК СЕРВЕРА (стиль окна XP) === */
+.titleBar_a934d8 {
+    background: linear-gradient(to bottom, var(--xp-blue-dark), var(--xp-blue-medium)) !important;
+    color: white !important;
+    padding: 4px 8px !important;
+    border-bottom: 1px solid var(--xp-gray-darker) !important;
+    border-top: 1px solid var(--xp-button-highlight) !important;
+    border-left: 1px solid var(--xp-button-highlight) !important;
+    border-right: 1px solid var(--xp-button-shadow) !important;
+    font-family: Tahoma, Arial, sans-serif !important;
+    font-size: 12px !important;
+    line-height: 22px !important;
+}
+
+.title_a3a4ce {
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.titleBar_a934d8::after {
+    content: "─ □ ×" !important;
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-family: "Courier New", monospace !important;
+    font-size: 12px !important;
+    color: white !important;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3) !important;
+}
+
+/* === БОКОВАЯ ПАНЕЛЬ (каналы) === */
+.sidebar_a4d4d9 {
+    background: var(--xp-gray-light) !important;
+    border-right: 1px solid var(--xp-gray-darker) !important;
+    border-top: 1px solid var(--xp-button-highlight) !important;
+    border-left: 1px solid var(--xp-button-highlight) !important;
+    border-bottom: 1px solid var(--xp-button-shadow) !important;
+}
+
+.containerDefault_f6f816 {
+    background: var(--xp-gray-light) !important;
+}
+.containerDefault_f6f816:hover {
+    background: var(--xp-gray-medium) !important;
+}
+
+/* === ЧАТ-ОБЛАСТЬ === */
+.chatContent_a7d72e {
+    background: var(--xp-gray-light) !important;
+    border-left: 1px solid var(--xp-gray-darker) !important;
+}
+
+.message_d5deea {
+    background: var(--xp-gray-light) !important;
+    border: 1px solid var(--xp-gray-darker) !important;
+    border-left: none !important;
+    margin-bottom: 4px !important;
+}
+
+/* === КНОПКИ === */
+button {
+    border: 1px solid !important;
+    border-top-color: var(--xp-button-highlight) !important;
+    border-left-color: var(--xp-button-highlight) !important;
+    border-right-color: var(--xp-button-shadow) !important;
+    border-bottom-color: var(--xp-button-shadow) !important;
+    background: var(--xp-button-face) !important;
+    color: var(--xp-text) !important;
+    padding: 2px 6px !important;
+    font: 11px Tahoma, Arial, sans-serif !important;
+    cursor: pointer !important;
+}
+
+button:hover {
+    background: var(--xp-gray-medium) !important;
+}
+
+button:active {
+    border-top-color: var(--xp-button-shadow) !important;
+    border-left-color: var(--xp-button-shadow) !important;
+    border-right-color: var(--xp-button-highlight) !important;
+    border-bottom-color: var(--xp-button-highlight) !important;
+    background: var(--xp-gray-dark) !important;
+}
+
+/* === ПОЛЯ ВВОДА === */
+input, textarea, [class*="textarea"] {
+    border: 1px inset var(--xp-gray-darker) !important;
+    background: var(--xp-gray-light) !important;
+    color: var(--xp-text) !important;
+    font: 11px Tahoma, Arial, sans-serif !important;
+}
+
+/* === ПРОКРУТКА === */
+::-webkit-scrollbar-track {
+    background: var(--xp-gray-light) !important;
+    border: 1px solid var(--xp-gray-darker) !important;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--xp-gray-medium) !important;
+    border: 1px solid var(--xp-gray-darker) !important;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--xp-gray-dark) !important;
+}
+
+/* === МОДАЛЬНЫЕ ОКНА === */
+.modal_a4a4f9 {
+    background: var(--xp-gray-light) !important;
+    border: 2px solid var(--xp-gray-darker) !important;
+    border-top: 2px solid var(--xp-button-highlight) !important;
+    border-left: 2px solid var(--xp-button-highlight) !important;
+    border-right: 2px solid var(--xp-button-shadow) !important;
+    border-bottom: 2px solid var(--xp-button-shadow) !important;
+}
+
+.header_a0 {
+    background: linear-gradient(to bottom, var(--xp-blue-dark), var(--xp-blue-medium)) !important;
+    color: white !important;
+}
+
+/* === УБИРАЕМ НЕНУЖНОЕ === */
+.homeIcon_f94206,
+.trialBadge_e5cc02,
+.premiumTabItem_c7a22b,
+.wrapper_a47d49 {
+    display: none !important;
+}
+
+/* === ТЕКСТ === */
+.markup_a7e664 {
+    color: var(--xp-text) !important;
+    font: 12px Tahoma, Arial, sans-serif !important;
+}
