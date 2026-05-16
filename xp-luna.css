@@ -1,58 +1,79 @@
-/* xp-luna-updated.css — Windows XP Luna Theme for Discord (Vencord 2026) */
-/* Author: You | Based on official Luna colors, Bliss SVG, and modern Discord DOM */
-/* Uses high specificity and embedded background for guaranteed compatibility */
+/* xp-luna.css — Windows XP Luna Theme for Discord (Vencord 2026) */
+/* Author: You | Based on official Luna colors, Bliss background, and XP UI elements */
+/* Inspired by complex XP themes but consolidated into one file */
 
-/* --- XP Luna Color Palette --- */
+/* --- XP Luna Color Variables --- */
 :root {
-    --xp-blue-light: #e6f0fa;
-    --xp-blue-medium: #9ebcdb;
-    --xp-blue-dark: #5a8bd1;
-    --xp-blue-title: #0a246a;
+    /* Window Colors */
+    --xp-window-color-1: #5a8bd1; /* Dark blue top */
+    --xp-window-color-2: #9ebcdb; /* Medium blue bottom */
+    --xp-window-color-3: #e6f0fa; /* Light blue border */
 
-    --xp-gray-light: #f5f5f5;
-    --xp-gray-medium: #ebebeb;
-    --xp-gray-dark: #d1d1d1;
-    --xp-gray-darker: #a0a0a0;
+    /* Taskbar Colors */
+    --xp-taskbar-color-1: #e6f0fa; /* Light blue top */
+    --xp-taskbar-color-2: #9ebcdb; /* Medium blue bottom */
+    --xp-taskbar-color-3: #5a8bd1; /* Dark blue border */
 
-    --xp-button-face: #ececec;
-    --xp-button-shadow: #9f9f9f;
-    --xp-button-highlight: #ffffff;
+    /* Start Menu Colors */
+    --xp-start-color-1: #0a246a; /* Dark blue */
+    --xp-start-color-2: #5a8bd1; /* Medium blue */
 
-    --xp-text: #000000;
-    --xp-accent: #0a246a;
-    --xp-unread: #ff0000;
+    /* Shortcut Colors */
+    --xp-shortcut-color-1: #5a8bd1; /* Medium blue */
+    --xp-shortcut-color-2: #0a246a; /* Dark blue */
 
+    /* Ping/Alert Colors */
+    --xp-ping-color-1: #ff0000; /* Red */
+    --xp-ping-color-2: #982929; /* Darker red */
+
+    /* Tooltip Colors */
+    --xp-tooltip-color-1: #f5f5f5; /* Light gray */
+    --xp-tooltip-color-2: #ebebeb; /* Medium gray */
+
+    /* Selected/Hover Colors */
+    --xp-selected-color: #0a246a; /* Dark blue */
+    --xp-hover-color: #ebebeb; /* Medium gray */
+
+    /* Text Colors */
+    --xp-txt-color: #000000; /* Black */
+    --xp-txt-color-inverted: #ffffff; /* White */
+
+    /* Button Colors */
+    --xp-button-face: #ececec; /* Button face */
+    --xp-button-shadow: #9f9f9f; /* Button shadow */
+    --xp-button-highlight: #ffffff; /* Button highlight */
+
+    /* Other Colors */
+    --xp-set-color: #000000; /* Used for various elements */
+    --xp-zing-color: #ff8000; /* Accent for highlights */
+
+    /* Squared Radius */
     --squared-radius: 0;
+
+    /* Embedded Bliss Background */
+    --xp-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230053c3'/%3E%3Cstop offset='100%25' stop-color='%235d9cec'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='100' height='100'/%3E%3C/svg%3E");
 }
 
-/* --- Embedded Bliss Background as SVG (no external URL) --- */
+/* --- Apply Bliss Background to App Mount --- */
 #app-mount,
 .appMount_ec3009 {
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230053c3'/%3E%3Cstop offset='100%25' stop-color='%235d9cec'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='100' height='100'/%3E%3C/svg%3E") center/cover fixed !important;
+    background: var(--xp-background-image) center/cover fixed !important;
 }
 
-/* --- Force square UI (XP has no rounded corners) --- */
+/* --- Force square UI --- */
 *, *::before, *::after {
     border-radius: var(--squared-radius) !important;
 }
 
-/* --- Ensure layout is applied regardless of theme context --- */
-.theme-dark,
-.theme-light {
-    --xp-current-bg: var(--xp-gray-light);
-    --xp-current-text: var(--xp-text);
-}
-
-/* === ПАНЕЛЬ ЗАДАЧ (серверы внизу) === */
-/* High specificity selector */
-:is(:where(.wrapper_fea3ef)) {
+/* --- Taskbar (Guilds at bottom) --- */
+.wrapper_fea3ef {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     height: 40px !important;
-    background: linear-gradient(to bottom, var(--xp-blue-light), var(--xp-blue-medium)) !important;
-    border: 1px solid var(--xp-blue-dark) !important;
+    background: linear-gradient(to bottom, var(--xp-taskbar-color-1), var(--xp-taskbar-color-2)) !important;
+    border: 1px solid var(--xp-taskbar-color-3) !important;
     padding: 4px 8px !important;
     overflow-x: auto !important;
     white-space: nowrap !important;
@@ -60,56 +81,61 @@
     z-index: 10000 !important;
     display: flex !important;
     align-items: center !important;
-    /* Ensure it's not clipped */
-    pointer-events: all !important;
 }
 
-:is(:where(.wrapper_fea3ef))::-webkit-scrollbar {
+.wrapper_fea3ef::-webkit-scrollbar {
     display: none !important;
 }
 
-/* Иконки серверов на панели задач */
-:is(:where(.guildIconContainer_b0a763, .childWrapper_a6ce15, .wrapper_ed1dea)) {
+/* --- Guild Icons on Taskbar --- */
+.guildIconContainer_b0a763 {
+    margin-right: 2px !important;
+}
+
+.childWrapper_a6ce15,
+.wrapper_ed1dea {
     width: 32px !important;
     height: 32px !important;
     border: 1px solid transparent !important;
     background: transparent !important;
-    margin: 0 2px !important;
-    flex-shrink: 0 !important;
+    margin: 0 !important;
+    border-radius: var(--squared-radius) !important;
 }
 
-:is(:where(.selected_ae80f7)) :is(:where(.childWrapper_a6ce15, .wrapper_ed1dea)) {
-    background: var(--xp-accent) !important;
-    border: 1px solid var(--xp-gray-darker) !important;
+.selected_ae80f7 .childWrapper_a6ce15,
+.selected_ae80f7 .wrapper_ed1dea {
+    background: var(--xp-selected-color) !important;
+    border: 1px solid var(--xp-button-shadow) !important;
 }
 
-:is(:where(.selected_ae80f7)) :is(:where(.childWrapper_a6ce15 *, .wrapper_ed1dea *)) {
-    filter: brightness(0) invert(1);
+.selected_ae80f7 .childWrapper_a6ce15 *,
+.selected_ae80f7 .wrapper_ed1dea * {
+    filter: brightness(0) invert(1) !important;
 }
 
-/* === ЗАГОЛОВОК СЕРВЕРА (стиль окна XP) === */
-:is(:where(.titleBar_a934d8)) {
-    background: linear-gradient(to bottom, var(--xp-blue-dark), var(--xp-blue-medium)) !important;
-    color: white !important;
+/* --- Title Bar (Server Name Bar) --- */
+.titleBar_a934d8 {
+    background: linear-gradient(to bottom, var(--xp-window-color-1), var(--xp-window-color-2)) !important;
+    color: var(--xp-txt-color-inverted) !important;
     padding: 4px 8px !important;
-    border-bottom: 1px solid var(--xp-gray-darker) !important;
+    border-bottom: 1px solid var(--xp-button-shadow) !important;
     border-top: 1px solid var(--xp-button-highlight) !important;
     border-left: 1px solid var(--xp-button-highlight) !important;
     border-right: 1px solid var(--xp-button-shadow) !important;
-    font-family: Tahoma, Arial, sans-serif !important;
+    font-family: Tahoma, sans-serif !important;
     font-size: 12px !important;
     line-height: 22px !important;
     position: relative !important;
-    height: 30px !important; /* Explicit height for consistent positioning */
+    height: 30px !important;
 }
 
 .title_a3a4ce {
-    color: white !important;
+    color: var(--xp-txt-color-inverted) !important;
     font-weight: bold !important;
 }
 
-/* Добавляем "— □ ×" в заголовок */
-:is(:where(.titleBar_a934d8))::after {
+/* Add "— □ ×" to title bar */
+.titleBar_a934d8::after {
     content: "─ □ ×" !important;
     position: absolute !important;
     right: 12px !important;
@@ -117,40 +143,40 @@
     transform: translateY(-50%) !important;
     font-family: "Courier New", monospace !important;
     font-size: 12px !important;
-    color: white !important;
+    color: var(--xp-txt-color-inverted) !important;
     text-shadow: 0 1px 1px rgba(0,0,0,0.3) !important;
 }
 
-/* === БОКОВАЯ ПАНЕЛЬ (каналы) === */
-:is(:where(.sidebar_a4d4d9)) {
-    background: var(--xp-gray-light) !important;
-    border-right: 1px solid var(--xp-gray-darker) !important;
+/* --- Sidebars (Channels, Members) --- */
+.sidebar_a4d4d9 {
+    background: var(--xp-tooltip-color-2) !important;
+    border-right: 1px solid var(--xp-button-shadow) !important;
     border-top: 1px solid var(--xp-button-highlight) !important;
     border-left: 1px solid var(--xp-button-highlight) !important;
     border-bottom: 1px solid var(--xp-button-shadow) !important;
 }
 
-:is(:where(.containerDefault_f6f816)) {
-    background: var(--xp-gray-light) !important;
+.containerDefault_f6f816 {
+    background: var(--xp-tooltip-color-2) !important;
 }
-:is(:where(.containerDefault_f6f816)):hover {
-    background: var(--xp-gray-medium) !important;
-}
-
-/* === ЧАТ-ОБЛАСТЬ === */
-:is(:where(.chatContent_a7d72e)) {
-    background: var(--xp-gray-light) !important;
-    border-left: 1px solid var(--xp-gray-darker) !important;
+.containerDefault_f6f816:hover {
+    background: var(--xp-hover-color) !important;
 }
 
-:is(:where(.message_d5deea)) {
-    background: var(--xp-gray-light) !important;
-    border: 1px solid var(--xp-gray-darker) !important;
+/* --- Chat Area --- */
+.chatContent_a7d72e {
+    background: var(--xp-tooltip-color-2) !important;
+    border-left: 1px solid var(--xp-button-shadow) !important;
+}
+
+.message_d5deea {
+    background: var(--xp-tooltip-color-2) !important;
+    border: 1px solid var(--xp-button-shadow) !important;
     border-left: none !important;
     margin-bottom: 4px !important;
 }
 
-/* === КНОПКИ (XP стиль) === */
+/* --- Buttons (XP Style) --- */
 button {
     border: 1px solid !important;
     border-top-color: var(--xp-button-highlight) !important;
@@ -158,14 +184,15 @@ button {
     border-right-color: var(--xp-button-shadow) !important;
     border-bottom-color: var(--xp-button-shadow) !important;
     background: var(--xp-button-face) !important;
-    color: var(--xp-text) !important;
+    color: var(--xp-txt-color) !important;
     padding: 2px 6px !important;
     font: 11px Tahoma, Arial, sans-serif !important;
     cursor: pointer !important;
+    border-radius: var(--squared-radius) !important;
 }
 
 button:hover {
-    background: var(--xp-gray-medium) !important;
+    background: var(--xp-hover-color) !important;
 }
 
 button:active {
@@ -173,64 +200,111 @@ button:active {
     border-left-color: var(--xp-button-shadow) !important;
     border-right-color: var(--xp-button-highlight) !important;
     border-bottom-color: var(--xp-button-highlight) !important;
-    background: var(--xp-gray-dark) !important;
+    background: var(--xp-tooltip-color-1) !important;
 }
 
-/* === ПОЛЯ ВВОДА === */
+/* --- Input Fields (XP Style) --- */
 input, textarea, [class*="textarea"] {
-    border: 1px inset var(--xp-gray-darker) !important;
-    background: var(--xp-gray-light) !important;
-    color: var(--xp-text) !important;
+    border: 1px inset var(--xp-button-shadow) !important;
+    background: var(--xp-tooltip-color-2) !important;
+    color: var(--xp-txt-color) !important;
     font: 11px Tahoma, Arial, sans-serif !important;
+    border-radius: var(--squared-radius) !important;
 }
 
-/* === ПРОКРУТКА === */
+/* --- Scrollbars (XP Style) --- */
 ::-webkit-scrollbar-track {
-    background: var(--xp-gray-light) !important;
-    border: 1px solid var(--xp-gray-darker) !important;
+    background: var(--xp-tooltip-color-2) !important;
+    border: 1px solid var(--xp-button-shadow) !important;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--xp-gray-medium) !important;
-    border: 1px solid var(--xp-gray-darker) !important;
+    background: var(--xp-hover-color) !important;
+    border: 1px solid var(--xp-button-shadow) !important;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--xp-gray-dark) !important;
+    background: var(--xp-tooltip-color-1) !important;
 }
 
-/* === МОДАЛЬНЫЕ ОКНА === */
-:is(:where(.modal_a4a4f9)) {
-    background: var(--xp-gray-light) !important;
-    border: 2px solid var(--xp-gray-darker) !important;
+/* --- Modals/Popups (XP Style) --- */
+.modal_a4a4f9 {
+    background: var(--xp-tooltip-color-2) !important;
+    border: 2px solid var(--xp-button-shadow) !important;
     border-top: 2px solid var(--xp-button-highlight) !important;
     border-left: 2px solid var(--xp-button-highlight) !important;
     border-right: 2px solid var(--xp-button-shadow) !important;
     border-bottom: 2px solid var(--xp-button-shadow) !important;
 }
 
-:is(:where(.header_a0)) {
-    background: linear-gradient(to bottom, var(--xp-blue-dark), var(--xp-blue-medium)) !important;
-    color: white !important;
+.header_a0 { /* Modal header */
+    background: linear-gradient(to bottom, var(--xp-window-color-1), var(--xp-window-color-2)) !important;
+    color: var(--xp-txt-color-inverted) !important;
 }
 
-/* === УБИРАЕМ НЕНУЖНОЕ === */
-:is(:where(.homeIcon_f94206, .trialBadge_e5cc02, .premiumTabItem_c7a22b, .wrapper_a47d49)) {
+/* --- Tooltips (XP Style) --- */
+.tooltip_b6c360 {
+    background: var(--xp-tooltip-color-2) !important;
+    border: 1px solid var(--xp-button-shadow) !important;
+    color: var(--xp-txt-color) !important;
+    font-family: Tahoma, Arial, sans-serif !important;
+    font-size: 11px !important;
+    border-radius: var(--squared-radius) !important;
+}
+
+/* --- Settings Panel (XP Style) --- */
+.standardSidebarView_c25c6d {
+    background: var(--xp-tooltip-color-2) !important;
+    border: 1px solid var(--xp-button-shadow) !important;
+    border-radius: var(--squared-radius) !important;
+}
+
+.sidebarRegionScroller_c25c6d {
+    background: var(--xp-tooltip-color-2) !important;
+    border-right: 1px solid var(--xp-button-shadow) !important;
+    border-radius: var(--squared-radius) !important;
+}
+
+.contentRegionScroller_c25c6d {
+    background: var(--xp-tooltip-color-2) !important;
+    border-left: 1px solid var(--xp-button-shadow) !important;
+    border-radius: var(--squared-radius) !important;
+}
+
+/* --- Hide Elements (Optional) --- */
+.homeIcon_f94206,
+.trialBadge_e5cc02,
+.premiumTabItem_c7a22b,
+.wrapper_a47d49 { /* Gift button */
     display: none !important;
 }
 
-/* === ТЕКСТ === */
-:is(:where(.markup_a7e664)) {
-    color: var(--xp-text) !important;
-    font: 12px Tahoma, Arial, sans-serif !important;
+/* --- Text Formatting (XP Style) --- */
+.markup_a7e664 { /* Message text */
+    color: var(--xp-txt-color) !important;
+    font-family: Tahoma, Arial, sans-serif !important;
+    font-size: 12px !important;
 }
 
-/* --- Гарантия приоритета --- */
-/* Если Discord применяет инлайновые стили, мы перебьём их */
-:is(:where(.wrapper_fea3ef, .titleBar_a934d8, .sidebar_a4d4d9, .chatContent_a7d72e)) {
-    all: initial !important; /* Reset everything first */
-    background: inherit !important; /* Then re-apply our background */
+/* --- Ensure High Priority --- */
+:is(.wrapper_fea3ef, .titleBar_a934d8, .sidebar_a4d4d9, .chatContent_a7d72e, .modal_a4a4f9, .standardSidebarView_c25c6d) {
+    all: initial !important;
+    background: inherit !important;
     color: inherit !important;
     border: inherit !important;
     position: inherit !important;
     display: inherit !important;
     z-index: inherit !important;
+    border-radius: inherit !important;
+}
+
+/* --- Apply variables to Discord's theme contexts --- */
+.theme-dark, .theme-light {
+    --xp-bg-color: var(--xp-tooltip-color-2);
+    --xp-bg-bright-color: var(--xp-button-highlight);
+    --xp-bg-tint-color: var(--xp-tooltip-color-2);
+    --xp-bg-shade-color: var(--xp-button-shadow);
+    --xp-txt-color: var(--xp-txt-color);
+    --xp-border-color: var(--xp-button-shadow);
+    --xp-set-color: var(--xp-set-color);
+    --xp-hover-color: var(--xp-hover-color);
+    --xp-zing-color: var(--xp-zing-color);
 }
